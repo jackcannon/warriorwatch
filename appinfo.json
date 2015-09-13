@@ -1,0 +1,64 @@
+{
+    "appKeys": {},
+    "capabilities": [
+        ""
+    ],
+    "companyName": "jcgun",
+    "longName": "RPG",
+    "projectType": "native",
+    "resources": {
+        "media": [
+            {
+                "file": "images/MENU_ICON.png",
+                "menuIcon": true,
+                "name": "MENU_ICON",
+                "type": "png"
+            },
+            {
+                "file": "images/BG_CASTLE.png",
+                "name": "BG_CASTLE",
+                "type": "png"
+            },
+            {
+                "file": "images/BG_TOWN.png",
+                "name": "BG_TOWN",
+                "type": "png"
+            },
+            {
+                "file": "images/BG_BEACH.png",
+                "name": "BG_BEACH",
+                "type": "png"
+            },
+            {
+                "file": "images/BG_TREES.png",
+                "name": "BG_TREES",
+                "type": "png"
+            },
+            {
+                "file": "images/ICON_CHAR.png",
+                "name": "ICON_CHAR",
+                "type": "png"
+            },
+            {
+                "file": "images/ICON_BATTLE.png",
+                "name": "ICON_BATTLE",
+                "type": "png"
+            },
+            {
+                "file": "images/ICON_MAP.png",
+                "name": "ICON_MAP",
+                "type": "png"
+            }
+        ]
+    },
+    "sdkVersion": "3",
+    "shortName": "RPG",
+    "targetPlatforms": [
+        "basalt"
+    ],
+    "uuid": "12fd8d79-5c01-4fd1-88f8-9dc4147d6913",
+    "versionLabel": "1.0",
+    "watchapp": {
+        "watchface": false
+    }
+}
