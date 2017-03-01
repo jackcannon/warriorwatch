@@ -1,0 +1,116 @@
+{
+    "author": "Jack Cannon",
+    "dependencies": {},
+    "keywords": [],
+    "name": "warrior-watch",
+    "pebble": {
+        "displayName": "Warrior Watch",
+        "enableMultiJS": false,
+        "messageKeys": [],
+        "projectType": "native",
+        "resources": {
+            "media": [
+                {
+                    "file": "images/BG_BATTLE_BEACH.png",
+                    "name": "BG_BATTLE_BEACH",
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/BG_BATTLE_WOODS.png",
+                    "name": "BG_BATTLE_WOODS",
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/BG_WOODS.png",
+                    "name": "BG_WOODS",
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/ENEMY_GIANTRAT.png",
+                    "name": "ENEMY_GIANTRAT",
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/MENU_ICON.png",
+                    "menuIcon": true,
+                    "name": "MENU_ICON",
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/ICON_MAP.png",
+                    "name": "ICON_MAP",
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/ICON_BATTLE.png",
+                    "name": "ICON_BATTLE",
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/BG_TOWN.png",
+                    "name": "BG_TOWN",
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/BG_CASTLE.png",
+                    "name": "BG_CASTLE",
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/BG_BEACH.png",
+                    "name": "BG_BEACH",
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/ENEMY_GIANTSPIDER.png",
+                    "name": "ENEMY_GIANTSPIDER",
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/CHAR_MAGE.png",
+                    "name": "CHAR_MAGE",
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/CHAR_WARRIOR.png",
+                    "name": "CHAR_WARRIOR",
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/ENEMY_IMP.png",
+                    "name": "ENEMY_IMP",
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/CHAR_NINJA.png",
+                    "name": "CHAR_NINJA",
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/BG_BATTLE_TOWN.png",
+                    "name": "BG_BATTLE_TOWN",
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/BG_BATTLE_CASTLE.png",
+                    "name": "BG_BATTLE_CASTLE",
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/ENEMY_RAT.png",
+                    "name": "ENEMY_RAT",
+                    "type": "bitmap"
+                }
+            ]
+        },
+        "sdkVersion": "3",
+        "targetPlatforms": [
+            "basalt"
+        ],
+        "uuid": "12fd8d79-5c01-4fd1-88f8-9dc4147d6913",
+        "watchapp": {
+            "watchface": false
+        }
+    },
+    "version": "1.0.0"
+}

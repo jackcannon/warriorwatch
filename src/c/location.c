@@ -2,8 +2,7 @@
 #include "shared.h"
 #include "location.h"
 #include "character.h"
-	
-#define LOCATION_KEY 10
+#include "battle.h"
 	
 Window *location_window;
 Layer *location_window_layer;
@@ -29,14 +28,10 @@ static SimpleMenuLayer *loc_menu_layer;
 static SimpleMenuSection loc_menu_sect[1];
 static SimpleMenuItem loc_menu_items[4];
 
-int page = 0;
-int location = 0;
-
-
-
 static void draw_sidebar(Layer *layer, GContext *ctx) {
 	APP_LOG(APP_LOG_LEVEL_DEBUG, "heap_bytes_used %d", (int) heap_bytes_used());
 	APP_LOG(APP_LOG_LEVEL_DEBUG, "heap_bytes_free %d", (int) heap_bytes_free());
+	APP_LOG(APP_LOG_LEVEL_DEBUG, "--- %d", 0);
 	graphics_context_set_stroke_color(ctx, locations[location].spt_color);
 	graphics_draw_line(ctx, GPoint(0, 0), GPoint(0, 168));
 	
@@ -63,13 +58,13 @@ static void update_display_location() {
 
 static void select_location(int index, void *ctx) {
 	location = index;
-	persist_write_int(LOCATION_KEY, location);
+	persist_write_int(PERSIST_LOCATION, location);
 	update_display_location();
 	window_stack_pop(true);
 // 	window_stack_push(location_window, true);
 }
 
-static void setup_loc_menu() {
+static void loc_menu_load() {
 	for (int i = 0; i < (int)(sizeof(locations) / sizeof(locations[0])); i++) {
 		loc_menu_items[i] = (SimpleMenuItem) {
 			.title = locations[i].name,
@@ -92,6 +87,9 @@ static void setup_loc_menu() {
 	menu_layer_pad_bottom_enable(loc_menu, false);
 	layer_add_child(loc_menu_window_layer, simple_menu_layer_get_layer(loc_menu_layer));
 }
+static void loc_menu_unload() {
+	simple_menu_layer_destroy(loc_menu_layer);
+}
 static void open_loc_menu() {
 	window_stack_push(loc_menu_window, true);
 }
@@ -104,7 +102,7 @@ static void up_click_handler(ClickRecognizerRef recognizer, void *context) {
 	open_loc_menu();
 }
 static void down_click_handler(ClickRecognizerRef recognizer, void *context) {
-// 	text_layer_set_text(text_location, locations[0].name);
+	battle_open();
 }
 static void click_config_provider(void *context) {
 	window_single_click_subscribe(BUTTON_ID_SELECT, select_click_handler);
@@ -152,31 +150,52 @@ static void window_load(Window *window) {
 	layer_set_update_proc(location_sidebar_layer, draw_sidebar);
 	layer_add_child(location_window_layer, location_sidebar_layer);
 }
+static void window_unload(Window *window) {
+	gbitmap_destroy(loc_bg_bitmap);
+	bitmap_layer_destroy(loc_bg_bitmap_layer);
+	
+	text_layer_destroy(text_location_intro);
+	text_layer_destroy(text_location);
+	
+	bitmap_layer_destroy(sidebar_icon_1_bitmap_layer);
+	bitmap_layer_destroy(sidebar_icon_2_bitmap_layer);
+	bitmap_layer_destroy(sidebar_icon_3_bitmap_layer);
+	
+	layer_destroy(location_sidebar_layer);
+	
+	layer_destroy(location_window_layer);
+	layer_destroy(loc_menu_window_layer);
+}
 
 
 
 void location_init(void) {
 	sidebar_icon_1_bitmap = gbitmap_create_with_resource(RESOURCE_ID_ICON_MAP);
-	sidebar_icon_2_bitmap = gbitmap_create_with_resource(RESOURCE_ID_ICON_CHAR);
+	sidebar_icon_2_bitmap = gbitmap_create_with_resource(RESOURCE_ID_CHAR_WARRIOR);
 	sidebar_icon_3_bitmap = gbitmap_create_with_resource(RESOURCE_ID_ICON_BATTLE);
 
-	if (persist_exists(LOCATION_KEY)) {
-		location = persist_read_int(LOCATION_KEY);
-	}	
+	if (persist_exists(PERSIST_LOCATION)) {
+		location = persist_read_int(PERSIST_LOCATION);
+	}
 	
 	location_window = window_create();
 	loc_menu_window = window_create();
 
 	window_set_click_config_provider(location_window, click_config_provider);
 	window_set_window_handlers(location_window, (WindowHandlers) {
-		.load = window_load,
+		.load   = window_load,
+		.unload = window_unload,
 	});
 	window_set_window_handlers(loc_menu_window, (WindowHandlers) {
-		.load = setup_loc_menu,
+		.load   = loc_menu_load,
+		.unload = loc_menu_unload,
 	});
 }
 void location_deinit(void) {
-	persist_write_int(LOCATION_KEY, location);
+	gbitmap_destroy(sidebar_icon_1_bitmap);
+	gbitmap_destroy(sidebar_icon_2_bitmap);
+	gbitmap_destroy(sidebar_icon_3_bitmap);
+	persist_write_int(PERSIST_LOCATION, location);
 	window_destroy(loc_menu_window);
 	window_destroy(location_window);
 }
